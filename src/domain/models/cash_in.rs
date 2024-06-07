@@ -2,9 +2,9 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize)]
 pub struct CashIn {
-    id: i32,
-    amount: f32,
-    description: String,
-    date: String,
-    status: String,
+    pub id: i32,
+    pub amount: f32,
+    pub description: String,
+    pub date: String,
+    pub status: String,
 }
