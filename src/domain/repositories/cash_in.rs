@@ -1,6 +1,8 @@
 use crate::domain::models::cash_in::CashIn;
+use async_trait::async_trait;
 use std::error::Error;
 
+#[async_trait]
 pub trait CashInRepository: Send + Sync {
     async fn create(&self, data: CashIn) -> Result<(), Box<dyn Error>>;
     async fn read(&self, id: i32) -> Option<CashIn>;
