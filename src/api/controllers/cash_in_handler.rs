@@ -1,32 +1,29 @@
-use crate::entities::cash_flow::cash_in::CashIn;
-use crate::external::container::AppState;
 use actix_web::{delete, get, post, put, web, HttpRequest, HttpResponse, Responder};
 
+use crate::{api::dto::cash_in::CashInDTO, domain::services::cash_in::CashInService};
+
 #[get("/{id}")]
-pub async fn get_cash_in(req: HttpRequest, data: web::Data<AppState>) -> impl Responder {
+pub async fn get_cash_in(
+    req: HttpRequest,
+    cash_in_service: web::Data<dyn CashInService>,
+) -> impl Responder {
     let id: i32 = req.match_info().get("id").unwrap().parse().unwrap();
-    let res = data.cash_in_usecases.lock().unwrap().read(id).unwrap();
+    let res = cash_in_service.read(id).await.unwrap();
     HttpResponse::Ok().json(res)
 }
 
 #[post("/create")]
 pub async fn create_cash_in(
-    payload: web::Json<CashIn>,
-    data: web::Data<AppState>,
+    payload: web::Json<CashInDTO>,
+    cash_in_service: web::Data<dyn CashInService>,
 ) -> impl Responder {
     let json_data = payload.into_inner();
-    data.cash_in_usecases
-        .lock()
-        .unwrap()
-        .create(json_data, data.cash_in_repository.lock().unwrap())
-        .unwrap();
-    // Access the JSON data and perform operations
-    // ...
-    HttpResponse::Ok().json(json_data)
+    cash_in_service.create(json_data.into()).await.unwrap();
+    HttpResponse::Ok().body("Ok")
 }
 
 #[put("/{id}")]
-pub async fn update_cash_in(req: HttpRequest, payload: web::Json<CashIn>) -> impl Responder {
+pub async fn update_cash_in(req: HttpRequest, payload: web::Json<CashInDTO>) -> impl Responder {
     let json_data = payload.into_inner();
     HttpResponse::Ok().body("PUT /cash_in")
 }

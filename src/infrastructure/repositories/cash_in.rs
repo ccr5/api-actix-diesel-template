@@ -3,16 +3,16 @@ use crate::domain::repositories::cash_in::CashInRepository;
 use async_trait::async_trait;
 use std::error::Error;
 
-pub struct CashInInfraRepository;
+pub struct CashInRepositoryImpl;
 
-impl CashInInfraRepository {
+impl CashInRepositoryImpl {
     pub fn new() -> Self {
-        CashInInfraRepository
+        CashInRepositoryImpl
     }
 }
 
 #[async_trait]
-impl CashInRepository for CashInInfraRepository {
+impl CashInRepository for CashInRepositoryImpl {
     async fn create(&self, data: CashIn) -> Result<(), Box<dyn Error>> {
         Ok(())
     }
