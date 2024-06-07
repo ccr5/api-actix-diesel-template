@@ -6,6 +6,6 @@ edition = "2021"
 [dependencies]
 actix-web = "4"
 async-trait = "0.1.80"
-diesel = "2.2.0"
+diesel = { version = "2.2.0", features = ["postgres", "r2d2", "chrono", "serde_json"] }
 dotenv = "0.15.0"
 serde = { version = "1.0.203", features = ["derive"] }

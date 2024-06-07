@@ -1,13 +1,17 @@
 use crate::domain::models::cash_out::CashOut;
 use crate::domain::repositories::cash_out::CashOutRepository;
+use crate::infrastructure::databases::postgresql::DBConn;
 use async_trait::async_trait;
 use std::error::Error;
+use std::sync::Arc;
 
-pub struct CashOutRepositoryImpl;
+pub struct CashOutRepositoryImpl {
+    pub pool: Arc<DBConn>,
+}
 
 impl CashOutRepositoryImpl {
-    pub fn new() -> Self {
-        CashOutRepositoryImpl
+    pub fn new(db: Arc<DBConn>) -> Self {
+        CashOutRepositoryImpl { pool: db }
     }
 }
 
