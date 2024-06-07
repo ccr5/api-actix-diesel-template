@@ -5,4 +5,6 @@ pub fn cash_in_routes() -> Scope {
     web::scope("/cash_in")
         .service(cash_in_handler::get_cash_in)
         .service(cash_in_handler::create_cash_in)
+        .service(cash_in_handler::update_cash_in)
+        .service(cash_in_handler::delete_cash_in)
 }

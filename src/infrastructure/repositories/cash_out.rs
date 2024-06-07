@@ -3,16 +3,16 @@ use crate::domain::repositories::cash_out::CashOutRepository;
 use async_trait::async_trait;
 use std::error::Error;
 
-pub struct CashOutInfraRepository;
+pub struct CashOutRepositoryImpl;
 
-impl CashOutInfraRepository {
+impl CashOutRepositoryImpl {
     pub fn new() -> Self {
-        CashOutInfraRepository
+        CashOutRepositoryImpl
     }
 }
 
 #[async_trait]
-impl CashOutRepository for CashOutInfraRepository {
+impl CashOutRepository for CashOutRepositoryImpl {
     async fn create(&self, data: CashOut) -> Result<(), Box<dyn Error>> {
         Ok(())
     }

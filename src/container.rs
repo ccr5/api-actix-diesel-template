@@ -1,11 +1,15 @@
 use crate::domain::services::cash_in::CashInService;
+use crate::domain::services::cash_out::CashOutService;
 use crate::infrastructure::repositories::cash_in::CashInRepositoryImpl;
+use crate::infrastructure::repositories::cash_out::CashOutRepositoryImpl;
 use crate::services::cash_in::CashInServiceImpl;
+use crate::services::cash_out::CashOutServiceImpl;
 use std::sync::Arc;
 
 #[derive(Clone)]
 pub struct Container {
     pub cash_in_service: Arc<dyn CashInService>,
+    pub cash_out_service: Arc<dyn CashOutService>,
 }
 
 impl Container {
@@ -14,7 +18,14 @@ impl Container {
         let cash_in_service = Arc::new(CashInServiceImpl {
             repository: cash_in_repository,
         });
-        Self { cash_in_service }
+        let cash_out_repository = Arc::new(CashOutRepositoryImpl);
+        let cash_out_service = Arc::new(CashOutServiceImpl {
+            repository: cash_out_repository,
+        });
+        Self {
+            cash_in_service,
+            cash_out_service,
+        }
     }
 }
 
