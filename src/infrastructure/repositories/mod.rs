@@ -1,1 +1,1 @@
-pub mod cash_in_repository;
+pub mod cash_in;
