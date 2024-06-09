@@ -1,6 +1,15 @@
 # api-actix-diesel-template
 A API using Actix and Diesel ORM
 
+- libpq
+sudo apt-get install libpq-dev
+
+- Extension CodeLLDB to debug
+- Allow break point everywhere
+```bash
+$ "debug.allowBreakpointsEverywhere": true
+```
+
 - pgAdmin
 
 - psql

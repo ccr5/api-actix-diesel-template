@@ -6,4 +6,4 @@ file = "src/schema.rs"
 custom_type_derives = ["diesel::query_builder::QueryId", "Clone"]
 
 [migrations_directory]
-dir = "/migrations"
+dir = "/mnt/ed30be9c-1830-48fe-bd92-d615afe089ff/GITs/api-actix-diesel-template/migrations"

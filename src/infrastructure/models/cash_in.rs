@@ -1,37 +1,46 @@
-use crate::domain::models::cash_in::CashIn;
-use crate::infrastructure::schema::cash_in;
+use crate::domain::models::cash_in::{CashIn, NewCashIn};
+use crate::schema::cash_in;
 use diesel;
 use diesel::prelude::*;
 
-#[derive(Queryable, Insertable, Serialize, Deserialize)]
-#[diesel(table_name = cash_in)]
+#[derive(Queryable)]
 pub struct CashInDiesel {
     pub id: i32,
-    pub amount: f32,
     pub description: String,
-    pub date: String,
     pub status: String,
 }
 
-impl From<CashIn> for CashInDiesel {
-    fn from(t: CashIn) -> Self {
-        CashInDiesel {
-            id: t.id,
-            amount: t.amount,
-            description: t.description,
-            date: t.date,
-            status: t.status,
-        }
-    }
+#[derive(Insertable)]
+#[diesel(table_name = cash_in)]
+pub struct NewCashInDiesel {
+    pub description: String,
+    pub status: String,
 }
 
 impl Into<CashIn> for CashInDiesel {
     fn into(self) -> CashIn {
         CashIn {
             id: self.id,
-            amount: self.amount,
             description: self.description,
-            date: self.date,
+            status: self.status,
+        }
+    }
+}
+
+impl From<NewCashIn> for NewCashInDiesel {
+    fn from(t: NewCashIn) -> Self {
+        NewCashInDiesel {
+            description: t.description,
+            status: t.status,
+        }
+    }
+}
+
+impl Into<CashIn> for NewCashInDiesel {
+    fn into(self) -> CashIn {
+        CashIn {
+            id: 0,
+            description: self.description,
             status: self.status,
         }
     }

@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 pub enum CashOutType {
     Pix,
     CreditCard,
@@ -11,12 +11,18 @@ pub enum CashOutType {
 #[derive(Serialize, Deserialize)]
 pub struct CashOut {
     pub id: i32,
-    pub amount: f32,
     pub description: String,
-    pub cash_out_type: CashOutType,
-    pub installment_number: i32,
-    pub total_installments: i32,
-    pub date: String,
+    pub installment_number: Option<i32>,
+    pub total_installments: Option<i32>,
     pub status: String,
-    pub observation: String,
+    pub observation: Option<String>,
+}
+
+#[derive(Serialize, Deserialize, Clone)]
+pub struct NewCashOut {
+    pub description: String,
+    pub installment_number: Option<i32>,
+    pub total_installments: Option<i32>,
+    pub status: String,
+    pub observation: Option<String>,
 }

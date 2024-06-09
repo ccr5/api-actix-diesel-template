@@ -1,6 +1,6 @@
-use actix_web::{delete, get, post, put, web, HttpRequest, HttpResponse, Responder};
+use actix_web::{delete, get, post, web, HttpRequest, HttpResponse, Responder};
 
-use crate::{api::dto::cash_in::CashInDTO, domain::services::cash_in::CashInService};
+use crate::{api::dto::cash_in::NewCashInDTO, domain::services::cash_in::CashInService};
 
 #[get("/{id}")]
 pub async fn get_cash_in(
@@ -16,26 +16,12 @@ pub async fn get_cash_in(
 
 #[post("/create")]
 pub async fn create_cash_in(
-    payload: web::Json<CashInDTO>,
+    payload: web::Json<NewCashInDTO>,
     cash_in_service: web::Data<dyn CashInService>,
 ) -> impl Responder {
     let json_data = payload.into_inner();
     match cash_in_service.create(json_data.into()).await {
-        Ok(()) => HttpResponse::Ok().body("Created"),
-        Err(err) => HttpResponse::NotFound().body(err.to_string()),
-    }
-}
-
-#[put("/{id}")]
-pub async fn update_cash_in(
-    req: HttpRequest,
-    payload: web::Json<CashInDTO>,
-    cash_in_service: web::Data<dyn CashInService>,
-) -> impl Responder {
-    let id: i32 = req.match_info().get("id").unwrap().parse().unwrap();
-    let json_data = payload.into_inner();
-    match cash_in_service.update(id, json_data.into()).await {
-        Ok(()) => HttpResponse::Ok().body("Updated"),
+        Ok(cash_in) => HttpResponse::Ok().json(cash_in),
         Err(err) => HttpResponse::NotFound().body(err.to_string()),
     }
 }

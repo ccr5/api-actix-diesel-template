@@ -1,4 +1,4 @@
-use crate::domain::models::cash_in::CashIn;
+use crate::domain::models::cash_in::{CashIn, NewCashIn};
 use crate::domain::repositories::cash_in::CashInRepository;
 use crate::domain::services::cash_in::CashInService;
 use async_trait::async_trait;
@@ -18,19 +18,15 @@ impl CashInServiceImpl {
 
 #[async_trait]
 impl CashInService for CashInServiceImpl {
-    async fn create(&self, data: CashIn) -> Result<(), Box<dyn Error>> {
+    async fn create(&self, data: NewCashIn) -> Result<CashIn, Box<dyn Error>> {
         self.repository.create(data).await
     }
 
-    async fn read(&self, id: i32) -> Option<CashIn> {
-        self.repository.read(id).await
+    async fn read(&self, cash_id: i32) -> Option<CashIn> {
+        self.repository.read(cash_id).await
     }
 
-    async fn update(&self, id: i32, data: CashIn) -> Result<(), Box<dyn Error>> {
-        self.repository.update(id, data).await
-    }
-
-    async fn delete(&self, id: i32) -> Result<(), Box<dyn Error>> {
-        self.repository.delete(id).await
+    async fn delete(&self, cash_id: i32) -> Result<(), Box<dyn Error>> {
+        self.repository.delete(cash_id).await
     }
 }

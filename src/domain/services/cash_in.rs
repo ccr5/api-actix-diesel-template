@@ -1,11 +1,10 @@
-use crate::domain::models::cash_in::CashIn;
+use crate::domain::models::cash_in::{CashIn, NewCashIn};
 use async_trait::async_trait;
 use std::error::Error;
 
 #[async_trait]
 pub trait CashInService: Send + Sync {
-    async fn create(&self, data: CashIn) -> Result<(), Box<dyn Error>>;
-    async fn read(&self, id: i32) -> Option<CashIn>;
-    async fn update(&self, id: i32, data: CashIn) -> Result<(), Box<dyn Error>>;
-    async fn delete(&self, id: i32) -> Result<(), Box<dyn Error>>;
+    async fn create(&self, data: NewCashIn) -> Result<CashIn, Box<dyn Error>>;
+    async fn read(&self, cash_id: i32) -> Option<CashIn>;
+    async fn delete(&self, cash_id: i32) -> Result<(), Box<dyn Error>>;
 }
