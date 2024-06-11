@@ -22,11 +22,9 @@ pub fn app() -> App<
 > {
     let container = Container::new();
     let cash_in_service = container.cash_in_service.clone();
-    let cash_out_service = container.cash_out_service.clone();
 
     App::new()
         .app_data(Data::from(cash_in_service.clone()))
-        .app_data(Data::from(cash_out_service.clone()))
         .service(routes())
         .service(welcome_message)
 }

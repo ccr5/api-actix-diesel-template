@@ -25,7 +25,6 @@ psql 'postgres://root:postgres@localhost/postgres'
 ```bash
 diesel setup
 diesel migration generate cash_in
-diesel migration generate cash_out 
 ```
 
 ### From migrations
